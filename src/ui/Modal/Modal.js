@@ -1,10 +1,11 @@
 import React, { useState, forwardRef, useImperativeHandle } from "react";
 import ReactDOM from "react-dom";
 
+import './Modal.css';
+import Button from "../Button/Button";
+
 const Modal = forwardRef((props, ref) => {
-//   const [display, setDisplay] = useState(true);
-    const [display, setDisplay] = useState(props.isOpen)
-    console.log(display);
+  const [display, setDisplay] = useState(false);
 
   useImperativeHandle(ref, () => {
     return {
@@ -17,7 +18,7 @@ const Modal = forwardRef((props, ref) => {
     setDisplay(true)
   };
 
-  const close = () => {
+  const close = () => {    
     setDisplay(false);
   };
 
@@ -25,10 +26,14 @@ const Modal = forwardRef((props, ref) => {
     return ReactDOM.createPortal(
       <div className={"modal-wrapper"}>
         <div onClick={close} className={"modal-backdrop"} />
-        <div className={"modal-box"}>
-            <h1> {props.header} </h1>
+          
+          <div className={"modal-box"}>
+          <div className="modal-header">
+            <h1>{props.title}</h1>
+            <Button type="error" onClick={close}>&times;</Button>
+          </div>
             {props.children}
-        </div>
+          </div>
       </div>, document.getElementById("modal-root"))
   }
 
