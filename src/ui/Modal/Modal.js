@@ -29,7 +29,7 @@ const Modal = forwardRef((props, ref) => {
           
           <div className={"modal-box"}>
           <div className="modal-header">
-            <h1>{props.title}</h1>
+            <h2>{props.title}</h2>
             <Button type="close" onClick={close}>&times;</Button>
           </div>
             {props.children}

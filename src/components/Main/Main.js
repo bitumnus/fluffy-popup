@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Modal from '../../ui/Modal/Modal';
 import PlayForm from '../PlayForm/PlayForm';
 import ResultText from '../ResultText/ResultText';
@@ -9,8 +9,8 @@ import InfoBlock from '../Info/InfoBlock';
 
 const Main = (props) => {
     const { words, success, error } = props;
-    const modalRef = React.useRef();
-    const modalRefPlay = React.useRef();
+    const modalRef = useRef();
+    const modalRefPlay = useRef();
     const [isVisible, setIsVisible] = useState(false)
     
     const openModalPlay = () => modalRefPlay.current.openModal();
@@ -39,10 +39,11 @@ const Main = (props) => {
             <br />
             <div className="main">
                 <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, architecto qui. Doloremque laboriosam impedit necessitatibus, officiis eum molestias facere nisi.
+                    Хочешь повеселиться? После нажатия "Играть" выскочит форма. Заполни поля соответствующими словами. Проявляй фантазию.
+                    Отправляй нам слова, мы соберем историю. Прочитать её сможешь только когда отправишь слова и потом нажмёшь нужную кнопку. Удачи!
                 </p>
-                <Button type="primary" onClick={openModalPlay}>Play</Button>
-                <Button type="primary" onClick={openModal} disabled={!words}>Open Modal</Button>
+                <Button type="primary" onClick={openModalPlay}>Играть</Button>
+                <Button type="primary" onClick={openModal} disabled={!words}>Собрать историю</Button>
                 <Modal ref={modalRefPlay} title="Давай играть">
                     <PlayForm words={words} closeModal={closeModalPlay.bind(this)} />
                 </Modal>

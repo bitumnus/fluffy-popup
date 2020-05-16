@@ -36,6 +36,7 @@
 
 .main > p {
   margin-bottom: 1em;
+  font-style: italic;
 }
 
 @media (prefers-reduced-motion: no-preference) {

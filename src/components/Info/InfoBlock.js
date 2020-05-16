@@ -4,7 +4,7 @@ const InfoBlock = props => {
     let responseText = '';
     switch (props.response.status) {
         case 200:
-            return responseText = `Всё ${props.response.statusText}`
+            return responseText = `Всё ${props.response.statusText}. Очень смешно :)`
         case 403:
             return responseText = `Ещё подумай: ${props.response.data.status}`
         case 404:

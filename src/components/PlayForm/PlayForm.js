@@ -9,7 +9,7 @@ import Button from '../../ui/Button/Button';
 
 function createOptionControl(id, textLabel, value) {
     return createControl({
-      label: `Введите ${textLabel}`,
+      label: `Введи ${textLabel}`,
       errorMessage: 'Значение не может быть пустым',
       value: value,
       id: id
@@ -18,9 +18,10 @@ function createOptionControl(id, textLabel, value) {
 
 function createFormControls(words) {
     return {
-      word1: createOptionControl(1, 'verb', words ? words.word1.value : ''),
-      word2: createOptionControl(2, 'smth', words ? words.word2.value : ''),
-      word3: createOptionControl(3, 'smth2', words ? words.word3.value : ''),
+      word1: createOptionControl(1, 'Имя твоего друга', words ? words.word1.value : ''),
+      word2: createOptionControl(2, 'прилагательное (какой?)', words ? words.word2.value : ''),
+      word3: createOptionControl(3, 'часть тела', words ? words.word3.value : ''),
+      word4: createOptionControl(4, 'глагол (что сделал?)', words ? words.word4.value : ''),
     }
 }
 
