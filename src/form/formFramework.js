@@ -3,7 +3,7 @@ export function createControl(config, validation) {
       ...config,
       validation,
       valid: !validation,
-      value: '',
+    //   value: '',
       touched: false,
     }
   }

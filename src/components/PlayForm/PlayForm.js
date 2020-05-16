@@ -7,25 +7,26 @@ import Button from '../../ui/Button/Button';
 
 
 
-function createOptionControl(textLabel) {
+function createOptionControl(id, textLabel, value) {
     return createControl({
       label: `Введите ${textLabel}`,
       errorMessage: 'Значение не может быть пустым',
-      id: textLabel
+      value: value,
+      id: id
     }, {required: true})
 }
 
-function createFormControls() {
+function createFormControls(words) {
     return {
-      word1: createOptionControl('verb'),
-      word2: createOptionControl('smth'),
-      word3: createOptionControl('smth2'),
+      word1: createOptionControl(1, 'verb', words ? words.word1.value : ''),
+      word2: createOptionControl(2, 'smth', words ? words.word2.value : ''),
+      word3: createOptionControl(3, 'smth2', words ? words.word3.value : ''),
     }
 }
 
 class PlayForm extends Component {
     state = {
-        formControls: createFormControls(),
+        formControls: createFormControls(this.props.words),
         isFormValid: false,
     }
 
