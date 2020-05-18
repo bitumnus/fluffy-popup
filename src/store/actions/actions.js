@@ -6,7 +6,7 @@ import {
     FETCH_TEXT_RESPONSE,
     FETCH_TEXT_ERROR,
 } from './actionTypes';
-import axios from '../../axios/axios';
+import axios, { axiosResponseInterceptor } from '../../axios/axios';
 
 export function add(words) {
     return {
@@ -56,8 +56,13 @@ export function sentText(text) {
         dispatch(createText(text));
         await axios.post('/storys1.json', getState().text)
             .then(res => {
-                dispatch(fetchTextResponse(res));
-                dispatch(resetGame())
+                if (res.status === 200) {
+                    dispatch(fetchTextResponse(res));
+                    dispatch(resetGame()) 
+                } else {
+                    axiosResponseInterceptor()
+                }
+               
             })
             .catch (error => {
                 dispatch(fetchTextError)
