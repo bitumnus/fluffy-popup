@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Redirect } from 'react-router-dom';
+
 import Modal from '../../ui/Modal/Modal';
 import PlayForm from '../PlayForm/PlayForm';
 import ResultText from '../ResultText/ResultText';
@@ -8,7 +10,7 @@ import InfoBlock from '../Info/InfoBlock';
 
 
 const Main = (props) => {
-    const { words, success, error } = props;
+    const { words, success, error, message } = props;
     const modalRef = useRef();
     const modalRefPlay = useRef();
     const [isVisible, setIsVisible] = useState(false)
@@ -31,26 +33,31 @@ const Main = (props) => {
 
     return (
         <>
-            { (success || error) && isVisible &&
-                <div className={success ? "success" : "error"}>
-                    <InfoBlock response={success || error} />
-                </div>
+            { error
+                ? <Redirect to="/error" />
+                : <>
+                    { (success || error) && isVisible &&
+                        <div className={success ? "success" : "error"}>
+                            <InfoBlock response={success || error} />
+                        </div>
+                    }
+                    <br />
+                    <div className="main">
+                        <p>
+                            Хочешь повеселиться? После нажатия "Играть" выскочит форма. Заполни поля соответствующими словами. Проявляй фантазию.
+                            Отправляй нам слова, мы соберем историю. Прочитать её сможешь только когда отправишь слова и потом нажмёшь нужную кнопку. Удачи!
+                        </p>
+                        <Button type="primary" onClick={openModalPlay}>Играть</Button>
+                        <Button type="primary" onClick={openModal} disabled={!words}>Собрать историю</Button>
+                        <Modal ref={modalRefPlay} title="Давай играть">
+                            <PlayForm words={words} closeModal={closeModalPlay.bind(this)} />
+                        </Modal>
+                        <Modal ref={modalRef} title="Твоя история">
+                            <ResultText closeModal={closeModal.bind(this)} />
+                        </Modal>
+                    </div>
+                </>
             }
-            <br />
-            <div className="main">
-                <p>
-                    Хочешь повеселиться? После нажатия "Играть" выскочит форма. Заполни поля соответствующими словами. Проявляй фантазию.
-                    Отправляй нам слова, мы соберем историю. Прочитать её сможешь только когда отправишь слова и потом нажмёшь нужную кнопку. Удачи!
-                </p>
-                <Button type="primary" onClick={openModalPlay}>Играть</Button>
-                <Button type="primary" onClick={openModal} disabled={!words}>Собрать историю</Button>
-                <Modal ref={modalRefPlay} title="Давай играть">
-                    <PlayForm words={words} closeModal={closeModalPlay.bind(this)} />
-                </Modal>
-                <Modal ref={modalRef} title="Твоя история">
-                    <ResultText closeModal={closeModal.bind(this)} />
-                </Modal>
-            </div>
         </>
     )
 }
@@ -60,6 +67,7 @@ function mapStateToProps(state) {
         words: state.words,
         error: state.error,
         success: state.success,
+        message: state.message,
     }
 }
 

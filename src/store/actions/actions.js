@@ -54,20 +54,14 @@ export function sentText(text) {
     return async (dispatch, getState) => {
         dispatch(fetchTextStart);
         dispatch(createText(text));
-        try {
-            await axios.post('/storys1.json', getState().text)
+        await axios.post('/storys1.json', getState().text)
             .then(res => {
-                if (res.status === 200) {
-                    dispatch(fetchTextResponse(res));
-                    dispatch(resetGame())
-                } else {
-                    dispatch(fetchTextError(res))
-                    dispatch(resetGame())
-                }
+                dispatch(fetchTextResponse(res));
+                dispatch(resetGame())
             })
-        } catch (error) {
-            dispatch(fetchTextError(error.response))
-        }
+            .catch (error => {
+                dispatch(fetchTextError)
+            })
         
     }
 }

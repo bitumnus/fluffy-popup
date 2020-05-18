@@ -12,6 +12,7 @@ const initialState = {
     text: null,
     success: null,
     error: null,
+    message: '',
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -35,7 +36,7 @@ export default function rootReducer(state = initialState, action) {
             }
         case FETCH_TEXT_ERROR:
             return {
-                ...state, error: action.error
+                ...state, error: action.error, message: action.error.data
             }
         case RESET_GAME:
             return {
